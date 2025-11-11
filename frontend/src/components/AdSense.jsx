@@ -1,18 +1,29 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function AdSense({ slot, format = 'auto', responsive = true }) {
+  const location = useLocation();
+
+  // YouTube 관련 페이지에서는 광고 표시 안함
+  const isYouTubePage =
+    location.pathname.startsWith('/youtube') ||
+    location.pathname.includes('youtube-search');
+
   useEffect(() => {
+    if (isYouTubePage) return;
+
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.error('AdSense error:', e);
     }
-  }, []);
+  }, [isYouTubePage]);
 
-  const clientId = import.meta.env.VITE_ADSENSE_CLIENT_ID;
+  const clientId = 'ca-pub-2418723931724986';
 
-  if (!clientId) {
-    return null; // Don't show ads if client ID is not configured
+  // YouTube 페이지에서는 광고 표시 안함
+  if (isYouTubePage || !clientId) {
+    return null;
   }
 
   return (
