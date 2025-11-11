@@ -73,4 +73,25 @@ if (typeof window !== 'undefined') {
   useAuthStore.getState().init();
 }
 
+// Helper hook for compatibility
+export const useAuth = () => {
+  const user = useAuthStore((state) => state.user);
+  const token = useAuthStore((state) => state.token);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const logout = useAuthStore((state) => state.logout);
+  const setUser = useAuthStore((state) => state.setUser);
+  const updateUser = useAuthStore((state) => state.updateUser);
+
+  return {
+    user,
+    token,
+    isAuthenticated,
+    setAuth,
+    logout,
+    setUser,
+    updateUser
+  };
+};
+
 export default useAuthStore;
