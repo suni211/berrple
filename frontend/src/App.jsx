@@ -16,6 +16,9 @@ import RegisterPage from './pages/RegisterPage';
 import CopyrightPage from './pages/CopyrightPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import BookmarksPage from './pages/BookmarksPage';
+import RankingsPage from './pages/RankingsPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
 function App() {
   return (
@@ -32,6 +35,7 @@ function App() {
         <Route path="copyright" element={<CopyrightPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="rankings" element={<RankingsPage />} />
 
         {/* Protected Routes */}
         <Route path="upload" element={
@@ -47,6 +51,16 @@ function App() {
         <Route path="mypage" element={
           <ProtectedRoute>
             <MyPage />
+          </ProtectedRoute>
+        } />
+        <Route path="bookmarks" element={
+          <ProtectedRoute>
+            <BookmarksPage />
+          </ProtectedRoute>
+        } />
+        <Route path="admin" element={
+          <ProtectedRoute>
+            <AdminDashboardPage />
           </ProtectedRoute>
         } />
 
