@@ -1,0 +1,21 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1280" height="720" fill="#1a1a1a"/>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  </pattern>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+
+  <!-- Video icon -->
+  <g transform="translate(640, 360)">
+    <rect x="-80" y="-60" width="160" height="120" rx="8" fill="#00FF80" opacity="0.2"/>
+    <path d="M -30 -30 L -30 30 L 30 0 Z" fill="#00FF80"/>
+  </g>
+
+  <!-- Text -->
+  <text x="640" y="450" font-family="Arial, sans-serif" font-size="24" fill="#00FF80" text-anchor="middle" opacity="0.8">
+    BERRPLE
+  </text>
+</svg>

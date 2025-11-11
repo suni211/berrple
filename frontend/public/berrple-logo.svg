@@ -1,0 +1,30 @@
+<svg width="220" height="60" viewBox="0 0 220 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <!-- Cloud Shape -->
+  <g transform="translate(10, 15)">
+    <!-- Main cloud body -->
+    <ellipse cx="15" cy="15" rx="12" ry="8" fill="#00FF80"/>
+    <ellipse cx="25" cy="12" rx="10" ry="9" fill="#00FF80"/>
+    <ellipse cx="35" cy="15" rx="12" ry="8" fill="#00FF80"/>
+    <rect x="15" y="15" width="20" height="8" fill="#00FF80"/>
+
+    <!-- Cloud highlight -->
+    <ellipse cx="20" cy="13" rx="4" ry="3" fill="#FFFFFF" opacity="0.3"/>
+  </g>
+
+  <!-- Text: BERRPLE -->
+  <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#00FF80" letter-spacing="1">
+    BERRPLE
+  </text>
+
+  <!-- Subtitle -->
+  <text x="62" y="50" font-family="Arial, sans-serif" font-size="8" fill="#00FF80" opacity="0.7" letter-spacing="2">
+    CLOUD COMMENTS
+  </text>
+
+  <!-- Small clouds decoration -->
+  <g opacity="0.5">
+    <circle cx="175" cy="15" r="3" fill="#00FF80"/>
+    <circle cx="180" cy="14" r="3" fill="#00FF80"/>
+    <circle cx="185" cy="15" r="3" fill="#00FF80"/>
+  </g>
+</svg>

@@ -1,0 +1,98 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { FiSearch, FiUpload, FiUser, FiMenu, FiX, FiSun, FiMoon, FiShield } from 'react-icons/fi';
+import useAuthStore from '../contexts/AuthContext';
+import useThemeStore from '../contexts/ThemeContext';
+import './Header.css';
+
+function Header() {
+  const { isAuthenticated, user, logout } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  return (
+    <header className="header">
+      <div className="container header-container">
+        <Link to="/" className="logo">
+          <img src="/berrple-logo.svg" alt="Berrple Logo" className="logo-image" />
+        </Link>
+
+        <form className="search-form" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="영상 검색..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+          <button type="submit" className="search-btn">
+            <FiSearch />
+          </button>
+        </form>
+
+        <nav className={`nav ${mobileMenuOpen ? 'nav-open' : ''}`}>
+          <Link to="/youtube-search" className="nav-link youtube-link">
+            <span className="youtube-icon">▶</span> YouTube 검색
+          </Link>
+          <Link to="/board/lol" className="nav-link">롤 게시판</Link>
+          <Link to="/board/free" className="nav-link">자유 게시판</Link>
+          <Link to="/board/suggestion" className="nav-link">건의 개선</Link>
+
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn nav-link"
+            title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+          >
+            {theme === 'dark' ? <FiSun /> : <FiMoon />}
+          </button>
+
+          {isAuthenticated ? (
+            <>
+              <Link to="/upload" className="nav-link">
+                <FiUpload /> 업로드
+              </Link>
+              <Link to="/mypage" className="nav-link" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <FiUser /> {user?.display_name || user?.username}
+                {user?.is_admin && (
+                  <FiShield style={{ color: '#FFD700', fontSize: '1rem' }} title="관리자" />
+                )}
+              </Link>
+              <button onClick={handleLogout} className="nav-link btn-link">
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-link">로그인</Link>
+              <Link to="/register" className="btn btn-primary">회원가입</Link>
+            </>
+          )}
+        </nav>
+
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <FiX /> : <FiMenu />}
+        </button>
+      </div>
+    </header>
+  );
+}
+
+export default Header;

@@ -1,0 +1,36 @@
+{
+  "name": "berrple-frontend",
+  "version": "1.0.0",
+  "description": "Berrple Frontend - Video platform with cloud comments",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext js,jsx"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "axios": "^1.6.2",
+    "zustand": "^4.4.7",
+    "react-youtube": "^10.1.0",
+    "video.js": "^8.10.0",
+    "react-player": "^2.14.1",
+    "@tanstack/react-query": "^5.14.2",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.12.0",
+    "date-fns": "^3.0.6",
+    "clsx": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
+}

@@ -1,0 +1,33 @@
+.video-page {
+  padding: 2rem 1rem;
+}
+
+.video-main {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.video-details {
+  margin-top: 2rem;
+}
+
+.video-title {
+  font-size: 1.75rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.video-meta {
+  display: flex;
+  gap: 2rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+.video-description {
+  background-color: var(--secondary-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
