@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-const passport = require('./config/passport');
 require('dotenv').config();
 
 const errorHandler = require('./middleware/errorHandler');
@@ -62,9 +61,6 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(compression());
-
-// Initialize Passport
-app.use(passport.initialize());
 
 // Logging
 if (process.env.NODE_ENV === 'development') {

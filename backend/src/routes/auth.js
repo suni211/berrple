@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const db = require('../config/database');
 const { authMiddleware } = require('../middleware/auth');
-const passport = require('../config/passport');
 
 // Register
 router.post('/register',
@@ -161,42 +160,5 @@ router.get('/me', authMiddleware, async (req, res, next) => {
 router.post('/logout', authMiddleware, (req, res) => {
   res.json({ message: 'Logout successful' });
 });
-
-// Google OAuth routes
-router.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'], session: false })
-);
-
-router.get('/google/callback',
-  passport.authenticate('google', { session: false, failureRedirect: '/login' }),
-  async (req, res, next) => {
-    try {
-      // Generate JWT token for the authenticated user
-      const token = jwt.sign(
-        { userId: req.user.id },
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-      );
-
-      // Create default channel if doesn't exist
-      const [channels] = await db.query(
-        'SELECT id FROM channels WHERE user_id = ?',
-        [req.user.id]
-      );
-
-      if (channels.length === 0) {
-        await db.query(
-          'INSERT INTO channels (user_id, channel_name, channel_handle) VALUES (?, ?, ?)',
-          [req.user.id, req.user.display_name, req.user.username]
-        );
-      }
-
-      // Redirect to frontend with token
-      res.redirect(`${process.env.FRONTEND_URL || 'https://berrple.com'}/auth/callback?token=${token}`);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
 
 module.exports = router;
