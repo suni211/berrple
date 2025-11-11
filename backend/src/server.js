@@ -19,6 +19,15 @@ const postRoutes = require('./routes/posts');
 const tagRoutes = require('./routes/tags');
 const uploadRoutes = require('./routes/upload');
 const youtubeRoutes = require('./routes/youtube');
+const bookmarkRoutes = require('./routes/bookmarks');
+const likeRoutes = require('./routes/likes');
+const reportRoutes = require('./routes/reports');
+const blockRoutes = require('./routes/blocks');
+const rankingRoutes = require('./routes/rankings');
+const searchRoutes = require('./routes/search');
+const recommendationRoutes = require('./routes/recommendations');
+const notificationRoutes = require('./routes/notifications');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -84,6 +93,15 @@ app.use('/api/posts', postRoutes);
 app.use('/api/tags', tagRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/youtube', youtubeRoutes);
+app.use('/api/bookmarks', bookmarkRoutes);
+app.use('/api/likes', likeRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/blocks', blockRoutes);
+app.use('/api/rankings', rankingRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {
