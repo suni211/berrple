@@ -9,6 +9,11 @@ RUN npm ci
 
 # 소스 코드 복사 및 빌드
 COPY . .
+
+# API URL 환경 변수 설정
+ARG VITE_API_URL=/api
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm run build
 
 # Nginx로 정적 파일 서빙
