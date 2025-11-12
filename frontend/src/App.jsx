@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import BookmarksPage from './pages/BookmarksPage';
 import RankingsPage from './pages/RankingsPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import ReferralPage from './pages/ReferralPage';
 
 function App() {
   return (
@@ -56,6 +57,11 @@ function App() {
         <Route path="bookmarks" element={
           <ProtectedRoute>
             <BookmarksPage />
+          </ProtectedRoute>
+        } />
+        <Route path="referral" element={
+          <ProtectedRoute>
+            <ReferralPage />
           </ProtectedRoute>
         } />
         <Route path="admin" element={
