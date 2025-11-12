@@ -20,6 +20,7 @@ import BookmarksPage from './pages/BookmarksPage';
 import RankingsPage from './pages/RankingsPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import ReferralPage from './pages/ReferralPage';
+import PointsShopPage from './pages/PointsShopPage';
 
 function App() {
   return (
@@ -62,6 +63,11 @@ function App() {
         <Route path="referral" element={
           <ProtectedRoute>
             <ReferralPage />
+          </ProtectedRoute>
+        } />
+        <Route path="shop" element={
+          <ProtectedRoute>
+            <PointsShopPage />
           </ProtectedRoute>
         } />
         <Route path="admin" element={

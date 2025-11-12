@@ -275,16 +275,38 @@ export default function ReferralPage() {
           </div>
         )}
 
+        {/* Points Rewards Info */}
+        <div className="instructions-section" style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)', border: '2px solid #f59e0b' }}>
+          <h3 style={{ color: '#92400e' }}>💰 포인트 보상</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem', background: 'white', borderRadius: '8px', fontWeight: '500' }}>
+              <span>친구 1명 가입</span>
+              <span style={{ color: '#f59e0b', fontWeight: '700' }}>+500P</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem', background: 'white', borderRadius: '8px', fontWeight: '500' }}>
+              <span>5명 달성 보너스</span>
+              <span style={{ color: '#f59e0b', fontWeight: '700' }}>+1,000P</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem', background: 'white', borderRadius: '8px', fontWeight: '500' }}>
+              <span>10명 달성 보너스</span>
+              <span style={{ color: '#f59e0b', fontWeight: '700' }}>+3,000P</span>
+            </div>
+            <div style={{ marginTop: '0.5rem', padding: '0.75rem', background: '#fbbf24', borderRadius: '8px', textAlign: 'center', fontWeight: '700', color: 'white' }}>
+              최대 획득 가능: 9,000 포인트
+            </div>
+          </div>
+        </div>
+
         {/* Instructions */}
         <div className="instructions-section">
           <h3>💡 사용 방법 및 주의사항</h3>
           <ol className="instructions-list">
             <li>위의 추천 링크를 복사하세요</li>
             <li>친구에게 링크를 공유하세요</li>
-            <li>친구가 링크를 통해 가입하면 자동으로 카운트됩니다</li>
+            <li>친구가 링크를 통해 가입하면 자동으로 포인트가 지급됩니다</li>
             <li>최대 10명까지만 추천 가능합니다</li>
-            <li>5명, 10명 달성 시 이메일로 알림을 받습니다</li>
-            <li>관리자 확인 후 기프티콘이 발송됩니다</li>
+            <li>5명, 10명 달성 시 보너스 포인트와 이메일 알림을 받습니다</li>
+            <li>포인트는 상점에서 다양한 아이템 구매에 사용할 수 있습니다</li>
           </ol>
           <div className="alert alert-danger">
             <AlertCircle size={16} />

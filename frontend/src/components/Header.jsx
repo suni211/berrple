@@ -1,9 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { FiSearch, FiUpload, FiUser, FiMenu, FiX, FiSun, FiMoon, FiShield, FiGift } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
+import { FiSearch, FiUpload, FiUser, FiMenu, FiX, FiSun, FiMoon, FiShield, FiGift, FiShoppingBag } from 'react-icons/fi';
 import useAuthStore from '../contexts/AuthContext';
 import useThemeStore from '../contexts/ThemeContext';
+import axios from 'axios';
 import './Header.css';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 function Header() {
   const { isAuthenticated, user, logout } = useAuthStore();
@@ -11,6 +14,27 @@ function Header() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [points, setPoints] = useState(0);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchPoints();
+    }
+  }, [isAuthenticated]);
+
+  const fetchPoints = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const response = await axios.get(`${API_URL}/points/balance`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPoints(response.data.available);
+    } catch (error) {
+      console.error('Error fetching points:', error);
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -63,6 +87,14 @@ function Header() {
 
           {isAuthenticated ? (
             <>
+              <Link
+                to="/shop"
+                className="nav-link points-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#fbbf24' }}
+                title="포인트 샵"
+              >
+                <FiShoppingBag /> {points.toLocaleString()}P
+              </Link>
               <Link
                 to="/referral"
                 className="nav-link"
