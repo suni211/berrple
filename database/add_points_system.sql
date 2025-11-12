@@ -84,36 +84,36 @@ ADD COLUMN IF NOT EXISTS color_code VARCHAR(20) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS sticker_id INT DEFAULT NULL,
 ADD INDEX idx_color (color_code);
 
--- Insert default shop items
+-- Insert default shop items (without emojis in icon_url to avoid encoding issues)
 INSERT INTO shop_items (item_type, item_name, item_description, price, is_permanent, icon_url, color_code) VALUES
 -- 닉네임 색상
-('nickname_color', '빨강 닉네임', '닉네임을 빨간색으로 변경', 300, TRUE, NULL, '#ef4444'),
-('nickname_color', '파랑 닉네임', '닉네임을 파란색으로 변경', 300, TRUE, NULL, '#3b82f6'),
-('nickname_color', '보라 닉네임', '닉네임을 보라색으로 변경', 500, TRUE, NULL, '#a855f7'),
-('nickname_color', '금색 닉네임', '닉네임을 금색으로 변경', 800, TRUE, NULL, '#fbbf24'),
-('nickname_color', '무지개 닉네임', '닉네임에 무지개 그라디언트 효과', 1500, TRUE, NULL, 'rainbow'),
+('nickname_color', '빨강 닉네임', '닉네임을 빨간색으로 변경', 300, TRUE, 'red', '#ef4444'),
+('nickname_color', '파랑 닉네임', '닉네임을 파란색으로 변경', 300, TRUE, 'blue', '#3b82f6'),
+('nickname_color', '보라 닉네임', '닉네임을 보라색으로 변경', 500, TRUE, 'purple', '#a855f7'),
+('nickname_color', '금색 닉네임', '닉네임을 금색으로 변경', 800, TRUE, 'gold', '#fbbf24'),
+('nickname_color', '무지개 닉네임', '닉네임에 무지개 그라디언트 효과', 1500, TRUE, 'rainbow', 'rainbow'),
 
 -- 프로필 뱃지
-('badge', '초보 뱃지', '새싹 아이콘', 100, TRUE, '🌱', NULL),
-('badge', '별 뱃지', '반짝이는 별 아이콘', 300, TRUE, '⭐', NULL),
-('badge', '왕관 뱃지', '왕관 아이콘', 500, TRUE, '👑', NULL),
-('badge', '불 뱃지', '불꽃 아이콘', 500, TRUE, '🔥', NULL),
-('badge', '하트 뱃지', '하트 아이콘', 400, TRUE, '💝', NULL),
-('badge', '다이아 뱃지', '다이아몬드 아이콘', 1000, TRUE, '💎', NULL),
+('badge', '초보 뱃지', '새싹 아이콘', 100, TRUE, 'seedling', NULL),
+('badge', '별 뱃지', '반짝이는 별 아이콘', 300, TRUE, 'star', NULL),
+('badge', '왕관 뱃지', '왕관 아이콘', 500, TRUE, 'crown', NULL),
+('badge', '불 뱃지', '불꽃 아이콘', 500, TRUE, 'fire', NULL),
+('badge', '하트 뱃지', '하트 아이콘', 400, TRUE, 'heart', NULL),
+('badge', '다이아 뱃지', '다이아몬드 아이콘', 1000, TRUE, 'diamond', NULL),
 
 -- 구름 댓글 색상
-('cloud_color', '분홍 구름', '구름 댓글을 분홍색으로', 200, FALSE, NULL, '#fecdd3'),
-('cloud_color', '하늘색 구름', '구름 댓글을 하늘색으로', 200, FALSE, NULL, '#bfdbfe'),
-('cloud_color', '민트 구름', '구름 댓글을 민트색으로', 200, FALSE, NULL, '#a7f3d0'),
-('cloud_color', '노랑 구름', '구름 댓글을 노란색으로', 200, FALSE, NULL, '#fef08a'),
-('cloud_color', '금색 구름', '구름 댓글을 금색으로', 500, FALSE, NULL, '#fbbf24'),
-('cloud_color', '무지개 구름', '구름 댓글에 무지개 효과', 800, FALSE, NULL, 'rainbow'),
+('cloud_color', '분홍 구름', '구름 댓글을 분홍색으로', 200, FALSE, 'pink', '#fecdd3'),
+('cloud_color', '하늘색 구름', '구름 댓글을 하늘색으로', 200, FALSE, 'sky', '#bfdbfe'),
+('cloud_color', '민트 구름', '구름 댓글을 민트색으로', 200, FALSE, 'mint', '#a7f3d0'),
+('cloud_color', '노랑 구름', '구름 댓글을 노란색으로', 200, FALSE, 'yellow', '#fef08a'),
+('cloud_color', '금색 구름', '구름 댓글을 금색으로', 500, FALSE, 'gold', '#fbbf24'),
+('cloud_color', '무지개 구름', '구름 댓글에 무지개 효과', 800, FALSE, 'rainbow', 'rainbow'),
 
 -- 칭호
-('title', '초대왕', '친구 10명 초대 달성 칭호', 1000, TRUE, NULL, NULL),
-('title', '베타 테스터', '초기 사용자 칭호', 500, TRUE, NULL, NULL),
-('title', 'VIP', 'VIP 회원 칭호', 2000, TRUE, NULL, NULL),
-('title', '구름 마스터', '구름 댓글 전문가', 1500, TRUE, NULL, NULL);
+('title', '초대왕', '친구 10명 초대 달성 칭호', 1000, TRUE, 'king', NULL),
+('title', '베타 테스터', '초기 사용자 칭호', 500, TRUE, 'beta', NULL),
+('title', 'VIP', 'VIP 회원 칭호', 2000, TRUE, 'vip', NULL),
+('title', '구름 마스터', '구름 댓글 전문가', 1500, TRUE, 'cloud', NULL);
 
 -- Update referral rewards to give points instead of gifts
 UPDATE referral_rewards SET admin_notes = 'Points will be awarded automatically' WHERE admin_notes IS NULL;

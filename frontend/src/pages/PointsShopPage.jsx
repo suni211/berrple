@@ -20,6 +20,28 @@ const CATEGORY_NAMES = {
   'title': '칭호'
 };
 
+const ICON_EMOJI_MAP = {
+  'seedling': '🌱',
+  'star': '⭐',
+  'crown': '👑',
+  'fire': '🔥',
+  'heart': '💝',
+  'diamond': '💎',
+  'red': '🔴',
+  'blue': '🔵',
+  'purple': '🟣',
+  'gold': '🟡',
+  'rainbow': '🌈',
+  'pink': '🩷',
+  'sky': '☁️',
+  'mint': '🍃',
+  'yellow': '💛',
+  'king': '👑',
+  'beta': '🔰',
+  'vip': '⭐',
+  'cloud': '☁️'
+};
+
 export default function PointsShopPage() {
   const [points, setPoints] = useState({ available: 0, total: 0, spent: 0 });
   const [shopItems, setShopItems] = useState({ grouped: {} });
@@ -272,7 +294,7 @@ export default function PointsShopPage() {
                 <div key={item.id} className={`shop-item ${isOwned(item.id) ? 'owned' : ''}`}>
                   <div className="item-header">
                     <div className="item-icon">
-                      {item.icon_url || '🎁'}
+                      {ICON_EMOJI_MAP[item.icon_url] || item.icon_url || '🎁'}
                     </div>
                     {item.color_code && renderColorPreview(item.color_code)}
                   </div>
@@ -320,7 +342,7 @@ export default function PointsShopPage() {
                   <div key={item.id} className="inventory-item">
                     <div className="item-header">
                       <div className="item-icon">
-                        {item.icon_url || '🎁'}
+                        {ICON_EMOJI_MAP[item.icon_url] || item.icon_url || '🎁'}
                       </div>
                       {item.color_code && renderColorPreview(item.color_code)}
                     </div>
