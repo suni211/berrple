@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { FiSearch, FiUpload, FiUser, FiMenu, FiX, FiSun, FiMoon, FiShield } from 'react-icons/fi';
+import { FiSearch, FiUpload, FiUser, FiMenu, FiX, FiSun, FiMoon, FiShield, FiGift } from 'react-icons/fi';
 import useAuthStore from '../contexts/AuthContext';
 import useThemeStore from '../contexts/ThemeContext';
+import ReferralModal from './ReferralModal';
 import './Header.css';
 
 function Header() {
@@ -11,6 +12,7 @@ function Header() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showReferralModal, setShowReferralModal] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -63,6 +65,14 @@ function Header() {
 
           {isAuthenticated ? (
             <>
+              <button
+                onClick={() => setShowReferralModal(true)}
+                className="nav-link btn-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: '#9333ea' }}
+                title="친구 초대하고 선물 받기"
+              >
+                <FiGift /> 친구 초대
+              </button>
               <Link to="/upload" className="nav-link">
                 <FiUpload /> 업로드
               </Link>
@@ -91,6 +101,8 @@ function Header() {
           {mobileMenuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
+
+      <ReferralModal isOpen={showReferralModal} onClose={() => setShowReferralModal(false)} />
     </header>
   );
 }

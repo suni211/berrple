@@ -28,6 +28,7 @@ const searchRoutes = require('./routes/search');
 const recommendationRoutes = require('./routes/recommendations');
 const notificationRoutes = require('./routes/notifications');
 const adminRoutes = require('./routes/admin');
+const referralRoutes = require('./routes/referrals');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -105,6 +106,7 @@ app.use('/api/search', searchRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/referrals', referralRoutes);
 
 // 404 handler
 app.use((req, res) => {

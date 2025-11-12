@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const db = require('../config/database');
 const { authMiddleware } = require('../middleware/auth');
+const { sendReferralRewardEmail, sendAdminNotificationEmail } = require('../utils/email');
 
 // Register
 router.post('/register',
@@ -12,7 +13,8 @@ router.post('/register',
     body('email').isEmail().normalizeEmail(),
     body('username').isLength({ min: 3, max: 50 }).trim(),
     body('password').isLength({ min: 6 }),
-    body('displayName').optional().isLength({ max: 100 }).trim()
+    body('displayName').optional().isLength({ max: 100 }).trim(),
+    body('referralCode').optional().isLength({ max: 20 }).trim()
   ],
   async (req, res, next) => {
     try {
@@ -21,7 +23,7 @@ router.post('/register',
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { email, username, password, displayName } = req.body;
+      const { email, username, password, displayName, referralCode } = req.body;
 
       // Check if user exists
       const [existingUsers] = await db.query(
@@ -33,13 +35,26 @@ router.post('/register',
         return res.status(409).json({ error: 'User already exists' });
       }
 
+      // Validate referral code if provided
+      let referrerId = null;
+      if (referralCode) {
+        const [referralCodes] = await db.query(
+          'SELECT user_id FROM referral_codes WHERE code = ?',
+          [referralCode]
+        );
+
+        if (referralCodes.length > 0) {
+          referrerId = referralCodes[0].user_id;
+        }
+      }
+
       // Hash password
       const passwordHash = await bcrypt.hash(password, 10);
 
       // Create user
       const [result] = await db.query(
-        'INSERT INTO users (email, username, password_hash, display_name) VALUES (?, ?, ?, ?)',
-        [email, username, passwordHash, displayName || username]
+        'INSERT INTO users (email, username, password_hash, display_name, referred_by_code) VALUES (?, ?, ?, ?, ?)',
+        [email, username, passwordHash, displayName || username, referralCode || null]
       );
 
       // Create default channel for user
@@ -47,6 +62,68 @@ router.post('/register',
         'INSERT INTO channels (user_id, channel_name, channel_handle) VALUES (?, ?, ?)',
         [result.insertId, displayName || username, username]
       );
+
+      // Process referral if valid
+      if (referrerId) {
+        await db.query(
+          'INSERT INTO referrals (referrer_id, referred_user_id, referral_code, status) VALUES (?, ?, ?, ?)',
+          [referrerId, result.insertId, referralCode, 'completed']
+        );
+
+        // Update referral count
+        await db.query(
+          'UPDATE referral_codes SET referral_count = referral_count + 1, updated_at = NOW() WHERE user_id = ?',
+          [referrerId]
+        );
+
+        // Check for milestone rewards
+        const [updatedCode] = await db.query(
+          'SELECT referral_count FROM referral_codes WHERE user_id = ?',
+          [referrerId]
+        );
+
+        const count = updatedCode[0].referral_count;
+        const milestones = [5, 10, 20, 50, 100];
+
+        // Check if user just reached a milestone
+        if (milestones.includes(count)) {
+          // Check if reward already exists
+          const [existingReward] = await db.query(
+            'SELECT id FROM referral_rewards WHERE user_id = ? AND reward_milestone = ?',
+            [referrerId, count]
+          );
+
+          if (existingReward.length === 0) {
+            // Create new reward
+            await db.query(
+              'INSERT INTO referral_rewards (user_id, reward_milestone, reward_status, notification_sent_at) VALUES (?, ?, ?, NOW())',
+              [referrerId, count, 'notified']
+            );
+
+            // Send email notification to referrer
+            const [referrerUser] = await db.query(
+              'SELECT email, username FROM users WHERE id = ?',
+              [referrerId]
+            );
+
+            if (referrerUser.length > 0) {
+              // 사용자에게 보상 알림 이메일 발송
+              await sendReferralRewardEmail(
+                referrerUser[0].email,
+                referrerUser[0].username,
+                count
+              );
+
+              // 관리자에게 알림 이메일 발송
+              await sendAdminNotificationEmail(
+                referrerUser[0].email,
+                referrerUser[0].username,
+                count
+              );
+            }
+          }
+        }
+      }
 
       // Generate token
       const token = jwt.sign(

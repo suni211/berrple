@@ -7,6 +7,28 @@
     <meta name="description" content="Berrple - 구름 코멘트와 함께하는 동영상 플랫폼" />
     <meta name="keywords" content="동영상, 유튜브, 구름, 코멘트, 플랫폼, berrple" />
     <title>Berrple - 구름 코멘트 동영상 플랫폼</title>
+
+    <!-- 테마 플리커 방지 스크립트 - CSS와 React 로드 전에 실행 -->
+    <script>
+      (function() {
+        try {
+          const stored = localStorage.getItem('berrple-theme');
+          if (stored) {
+            const { state } = JSON.parse(stored);
+            if (state?.theme) {
+              document.documentElement.setAttribute('data-theme', state.theme);
+            } else {
+              document.documentElement.setAttribute('data-theme', 'dark');
+            }
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2418723931724986"
      crossorigin="anonymous"></script>

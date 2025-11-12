@@ -1,20 +1,57 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { authAPI } from '../services/api';
 import useAuthStore from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 import './AuthPage.css';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 function RegisterPage() {
   const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     email: '',
     username: '',
     password: '',
-    displayName: ''
+    displayName: '',
+    referralCode: ''
   });
   const [loading, setLoading] = useState(false);
+  const [referrerInfo, setReferrerInfo] = useState(null);
+  const [validatingCode, setValidatingCode] = useState(false);
+
+  // Check for referral code in URL
+  useEffect(() => {
+    const refCode = searchParams.get('ref');
+    if (refCode) {
+      setFormData(prev => ({ ...prev, referralCode: refCode }));
+      validateReferralCode(refCode);
+    }
+  }, [searchParams]);
+
+  const validateReferralCode = async (code) => {
+    if (!code) {
+      setReferrerInfo(null);
+      return;
+    }
+
+    setValidatingCode(true);
+    try {
+      const response = await axios.get(`${API_URL}/referrals/validate/${code}`);
+      if (response.data.valid) {
+        setReferrerInfo(response.data.referrer);
+        toast.success(`${response.data.referrer.displayName}님의 추천으로 가입하시는군요!`);
+      }
+    } catch (error) {
+      setReferrerInfo(null);
+      toast.error('유효하지 않은 추천 코드입니다.');
+    } finally {
+      setValidatingCode(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +64,11 @@ function RegisterPage() {
       localStorage.setItem('token', token);
       setAuth(user, token);
 
-      toast.success('회원가입 성공!');
+      if (formData.referralCode && referrerInfo) {
+        toast.success(`회원가입 성공! ${referrerInfo.displayName}님께 감사 포인트가 지급됩니다.`);
+      } else {
+        toast.success('회원가입 성공!');
+      }
       navigate('/');
     } catch (error) {
       toast.error(error.response?.data?.error || '회원가입 실패');
@@ -40,6 +81,20 @@ function RegisterPage() {
     <div className="auth-page container">
       <div className="auth-card">
         <h1>회원가입</h1>
+
+        {referrerInfo && (
+          <div style={{
+            padding: '12px',
+            marginBottom: '20px',
+            backgroundColor: '#f0f9ff',
+            border: '1px solid #7dd3fc',
+            borderRadius: '8px',
+            fontSize: '14px'
+          }}>
+            🎉 <strong>{referrerInfo.displayName}</strong>님의 추천으로 가입하시는군요!
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>이메일</label>
@@ -77,6 +132,25 @@ function RegisterPage() {
               required
               minLength={6}
             />
+          </div>
+          <div className="form-group">
+            <label>추천 코드 (선택)</label>
+            <input
+              type="text"
+              value={formData.referralCode}
+              onChange={(e) => {
+                const code = e.target.value;
+                setFormData({ ...formData, referralCode: code });
+                if (code.length > 5) {
+                  validateReferralCode(code);
+                }
+              }}
+              placeholder="친구의 추천 코드가 있다면 입력하세요"
+              disabled={validatingCode}
+            />
+            {validatingCode && (
+              <small style={{ color: '#666' }}>추천 코드 확인 중...</small>
+            )}
           </div>
           <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? '가입 중...' : '회원가입'}

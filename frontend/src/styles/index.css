@@ -17,7 +17,9 @@
   --success-color: #00FF80;
   --transition: all 0.2s ease;
   --shadow-color: rgba(0, 255, 128, 0.2);
+  --shadow-hover: rgba(0, 255, 128, 0.3);
   --card-bg: #1a1a1a;
+  --input-bg: #0a0a0a;
 }
 
 /* 라이트 모드 */
@@ -31,8 +33,10 @@
   --error-color: #d32f2f;
   --success-color: #00CC66;
   --transition: all 0.2s ease;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 204, 102, 0.15);
   --card-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
 }
 
 body {
