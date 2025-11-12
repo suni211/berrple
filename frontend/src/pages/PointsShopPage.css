@@ -213,6 +213,18 @@
   margin-bottom: 0.5rem;
 }
 
+.item-icon-emoji {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .color-preview {
   width: 60px;
   height: 20px;

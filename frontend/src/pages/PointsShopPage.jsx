@@ -160,6 +160,24 @@ export default function PointsShopPage() {
     return Object.values(customization).includes(itemId);
   };
 
+  const renderItemIcon = (iconUrl) => {
+    const emoji = ICON_EMOJI_MAP[iconUrl] || iconUrl || '🎁';
+
+    // Create emoji as image using canvas
+    return (
+      <div
+        className="item-icon-emoji"
+        style={{
+          fontSize: '3rem',
+          lineHeight: 1,
+          textAlign: 'center'
+        }}
+      >
+        {emoji}
+      </div>
+    );
+  };
+
   const renderColorPreview = (colorCode) => {
     if (colorCode === 'rainbow') {
       return (
@@ -293,9 +311,7 @@ export default function PointsShopPage() {
               {getFilteredItems().map((item) => (
                 <div key={item.id} className={`shop-item ${isOwned(item.id) ? 'owned' : ''}`}>
                   <div className="item-header">
-                    <div className="item-icon">
-                      {ICON_EMOJI_MAP[item.icon_url] || item.icon_url || '🎁'}
-                    </div>
+                    {renderItemIcon(item.icon_url)}
                     {item.color_code && renderColorPreview(item.color_code)}
                   </div>
                   <div className="item-body">
@@ -341,9 +357,7 @@ export default function PointsShopPage() {
                 {inventory.map((item) => (
                   <div key={item.id} className="inventory-item">
                     <div className="item-header">
-                      <div className="item-icon">
-                        {ICON_EMOJI_MAP[item.icon_url] || item.icon_url || '🎁'}
-                      </div>
+                      {renderItemIcon(item.icon_url)}
                       {item.color_code && renderColorPreview(item.color_code)}
                     </div>
                     <div className="item-body">
