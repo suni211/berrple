@@ -1,6 +1,6 @@
 .points-shop-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
   padding: 2rem 0;
 }
 
@@ -43,9 +43,10 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem 2rem;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, #00FF80 0%, #00CC66 100%);
   border-radius: 12px;
-  color: white;
+  color: #000;
+  box-shadow: 0 0 30px rgba(0, 255, 128, 0.3);
 }
 
 .points-info {
@@ -83,7 +84,7 @@
 }
 
 .stat-card svg {
-  color: #667eea;
+  color: #00FF80;
   flex-shrink: 0;
 }
 
@@ -138,8 +139,10 @@
 }
 
 .tab.active {
-  background: #667eea;
-  color: white;
+  background: #00FF80;
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
 }
 
 /* Category Filter */
@@ -166,14 +169,16 @@
 }
 
 .filter-btn:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #00FF80;
+  color: #00FF80;
 }
 
 .filter-btn.active {
-  background: #667eea;
-  border-color: #667eea;
-  color: white;
+  background: #00FF80;
+  border-color: #00FF80;
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
 }
 
 /* Shop Grid */
@@ -198,7 +203,8 @@
 }
 
 .shop-item.owned {
-  border: 2px solid #10b981;
+  border: 2px solid #00FF80;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.2);
 }
 
 .item-header {
@@ -274,22 +280,24 @@
   gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fbbf24;
+  color: #00FF80;
 }
 
 .btn-purchase {
   padding: 0.5rem 1.5rem;
-  background: #667eea;
-  color: white;
+  background: #00FF80;
+  color: #000;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
 }
 
 .btn-purchase:hover:not(:disabled) {
-  background: #5568d3;
+  background: #00CC66;
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-purchase:disabled {
@@ -299,11 +307,12 @@
 
 .owned-badge {
   padding: 0.5rem 1rem;
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(0, 255, 128, 0.1);
+  color: #00FF80;
+  border: 1px solid #00FF80;
   border-radius: 8px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Inventory Section */
@@ -326,8 +335,8 @@
 
 .item-type {
   font-size: 0.75rem;
-  color: #667eea;
-  font-weight: 600;
+  color: #00FF80;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0 0 0.5rem 0;
 }
@@ -346,27 +355,28 @@
 .btn-equip {
   flex: 1;
   padding: 0.75rem;
-  background: #667eea;
-  color: white;
+  background: #00FF80;
+  color: #000;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .btn-equip:hover {
-  background: #5568d3;
+  background: #00CC66;
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.5);
 }
 
 .btn-equipped {
   flex: 1;
   padding: 0.75rem;
-  background: #10b981;
-  color: white;
-  border: none;
+  background: rgba(0, 255, 128, 0.1);
+  color: #00FF80;
+  border: 2px solid #00FF80;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -434,7 +444,7 @@
 }
 
 .positive {
-  color: #10b981;
+  color: #00FF80;
 }
 
 .negative {
@@ -471,17 +481,18 @@
 
 .btn-primary {
   padding: 0.75rem 2rem;
-  background: #667eea;
-  color: white;
+  background: #00FF80;
+  color: #000;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .btn-primary:hover {
-  background: #5568d3;
+  background: #00CC66;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
 }
 
 /* Loading */

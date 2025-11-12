@@ -1,6 +1,6 @@
 .referral-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
   padding: 2rem 0;
 }
 
@@ -24,10 +24,12 @@
   justify-content: center;
   width: 120px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 255, 128, 0.1);
+  border: 3px solid #00FF80;
   border-radius: 50%;
   margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0, 255, 128, 0.3);
 }
 
 .hero-icon svg {
@@ -71,15 +73,15 @@
 }
 
 .stat-card.primary svg {
-  color: #667eea;
+  color: #00FF80;
 }
 
 .stat-card.success svg {
-  color: #10b981;
+  color: #00FF80;
 }
 
 .stat-card.warning svg {
-  color: #f59e0b;
+  color: #00FF80;
 }
 
 .stat-content {
@@ -132,22 +134,24 @@
 .progress-text {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #667eea;
+  color: #00FF80;
 }
 
 .progress-bar {
   height: 20px;
-  background: #e5e7eb;
+  background: #1a1a1a;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  border: 1px solid #333;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #00FF80 0%, #00CC66 100%);
   transition: width 0.5s ease;
   border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
 }
 
 .progress-complete {
@@ -191,9 +195,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00FF80 0%, #00CC66 100%);
   border-radius: 8px;
-  color: white;
+  color: #000;
+  font-weight: 600;
 }
 
 .code-label {
@@ -226,7 +231,8 @@
 
 .code-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #00FF80;
+  box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
 }
 
 .btn-copy {
@@ -234,19 +240,21 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 1.5rem;
-  background: #667eea;
-  color: white;
+  background: #00FF80;
+  color: #000;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
   white-space: nowrap;
 }
 
 .btn-copy:hover {
-  background: #5568d3;
+  background: #00CC66;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-copy:active {
@@ -314,8 +322,9 @@
 }
 
 .milestone-card.reached {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-  border-color: #10b981;
+  background: linear-gradient(135deg, rgba(0, 255, 128, 0.1) 0%, rgba(0, 204, 102, 0.1) 100%);
+  border-color: #00FF80;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.2);
 }
 
 .milestone-card:hover {
@@ -336,8 +345,8 @@
 }
 
 .milestone-card.reached .milestone-icon {
-  background: #10b981;
-  color: white;
+  background: #00FF80;
+  color: #000;
 }
 
 .milestone-content {
@@ -366,8 +375,9 @@
 }
 
 .milestone-badge.reached {
-  background: #10b981;
-  color: white;
+  background: #00FF80;
+  color: #000;
+  font-weight: 700;
 }
 
 .milestone-badge.pending {
