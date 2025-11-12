@@ -7,6 +7,7 @@ const db = require('../config/database');
 const { authMiddleware } = require('../middleware/auth');
 const { sendReferralRewardEmail, sendAdminNotificationEmail } = require('../utils/email');
 const { validateIpForRegistration, logIpRegistration, getClientIp, canReceiveReferrals } = require('../utils/ipValidator');
+const { awardReferralPoints, awardMilestonePoints } = require('../utils/pointsManager');
 
 // Register
 router.post('/register',
@@ -96,6 +97,13 @@ router.post('/register',
           [referrerId]
         );
 
+        // Award points for referral signup (500 points)
+        try {
+          await awardReferralPoints(referrerId, result.insertId, referralCode);
+        } catch (error) {
+          console.error('Error awarding referral points:', error);
+        }
+
         // Check for milestone rewards
         const [updatedCode] = await db.query(
           'SELECT referral_count FROM referral_codes WHERE user_id = ?',
@@ -119,6 +127,13 @@ router.post('/register',
               'INSERT INTO referral_rewards (user_id, reward_milestone, reward_status, notification_sent_at) VALUES (?, ?, ?, NOW())',
               [referrerId, count, 'notified']
             );
+
+            // Award milestone bonus points
+            try {
+              await awardMilestonePoints(referrerId, count);
+            } catch (error) {
+              console.error('Error awarding milestone points:', error);
+            }
 
             // Send email notification to referrer
             const [referrerUser] = await db.query(
