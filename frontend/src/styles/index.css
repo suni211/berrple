@@ -8,8 +8,11 @@
 :root,
 [data-theme="dark"] {
   --primary-color: #00FF80;
+  --primary-dark: #00CC66;
   --bg-color: #000;
   --text-color: #FFF;
+  --text-secondary: #9ca3af;
+  --button-text: #000;
   --secondary-bg: #1a1a1a;
   --border-color: #333;
   --hover-bg: #2a2a2a;
@@ -18,25 +21,56 @@
   --transition: all 0.2s ease;
   --shadow-color: rgba(0, 255, 128, 0.2);
   --shadow-hover: rgba(0, 255, 128, 0.3);
+  --glow-color: rgba(0, 255, 128, 0.5);
   --card-bg: #1a1a1a;
   --input-bg: #0a0a0a;
+  --progress-bg: #1a1a1a;
+  --warning-bg: #fef3c7;
+  --warning-border: #fbbf24;
+  --warning-text: #92400e;
+  --danger-bg: #fee2e2;
+  --danger-border: #ef4444;
+  --danger-text: #991b1b;
+  --milestone-reached-bg: linear-gradient(135deg, rgba(0, 255, 128, 0.1) 0%, rgba(0, 204, 102, 0.1) 100%);
+  --spinner-border: rgba(255, 255, 255, 0.3);
+  --item-header-bg: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  --emoji-bg: #fff;
+  --disabled-bg: #9ca3af;
+  --owned-badge-bg: rgba(0, 255, 128, 0.1);
 }
 
 /* 라이트 모드 */
 [data-theme="light"] {
   --primary-color: #00CC66;
+  --primary-dark: #009955;
   --bg-color: #FFFFFF;
   --text-color: #1a1a1a;
+  --text-secondary: #6b7280;
+  --button-text: #FFF;
   --secondary-bg: #f5f5f5;
-  --border-color: #e0e0e0;
-  --hover-bg: #e8e8e8;
+  --border-color: #e5e7eb;
+  --hover-bg: #f3f4f6;
   --error-color: #d32f2f;
   --success-color: #00CC66;
   --transition: all 0.2s ease;
-  --shadow-color: rgba(0, 0, 0, 0.08);
-  --shadow-hover: rgba(0, 204, 102, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --glow-color: rgba(0, 204, 102, 0.3);
   --card-bg: #FFFFFF;
-  --input-bg: #FFFFFF;
+  --input-bg: #f9fafb;
+  --progress-bg: #e5e7eb;
+  --warning-bg: #fef3c7;
+  --warning-border: #fbbf24;
+  --warning-text: #92400e;
+  --danger-bg: #fee2e2;
+  --danger-border: #ef4444;
+  --danger-text: #991b1b;
+  --milestone-reached-bg: linear-gradient(135deg, rgba(0, 204, 102, 0.1) 0%, rgba(0, 153, 85, 0.1) 100%);
+  --spinner-border: rgba(0, 0, 0, 0.1);
+  --item-header-bg: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  --emoji-bg: #fff;
+  --disabled-bg: #9ca3af;
+  --owned-badge-bg: rgba(0, 204, 102, 0.1);
 }
 
 body {

@@ -1,6 +1,6 @@
 .referral-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+  background: var(--bg-color);
   padding: 2rem 0;
 }
 
@@ -13,7 +13,7 @@
 /* Hero Section */
 .referral-hero {
   text-align: center;
-  color: white;
+  color: var(--text-color);
   margin-bottom: 3rem;
   padding: 2rem 0;
 }
@@ -25,15 +25,15 @@
   width: 120px;
   height: 120px;
   background: rgba(0, 255, 128, 0.1);
-  border: 3px solid #00FF80;
+  border: 3px solid var(--primary-color);
   border-radius: 50%;
   margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 30px rgba(0, 255, 128, 0.3);
+  box-shadow: 0 0 30px var(--shadow-color);
 }
 
 .hero-icon svg {
-  color: white;
+  color: var(--primary-color);
 }
 
 .referral-hero h1 {
@@ -57,31 +57,31 @@
 }
 
 .stat-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 40px var(--shadow-hover);
 }
 
 .stat-card.primary svg {
-  color: #00FF80;
+  color: var(--primary-color);
 }
 
 .stat-card.success svg {
-  color: #00FF80;
+  color: var(--primary-color);
 }
 
 .stat-card.warning svg {
-  color: #00FF80;
+  color: var(--primary-color);
 }
 
 .stat-content {
@@ -91,30 +91,30 @@
 .stat-value {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1f2937;
+  color: var(--text-color);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 
 .stat-max {
   font-size: 1.5rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
 .stat-label {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 /* Progress Section */
 .progress-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .progress-header {
@@ -127,51 +127,51 @@
 .progress-header h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin: 0;
 }
 
 .progress-text {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #00FF80;
+  color: var(--primary-color);
 }
 
 .progress-bar {
   height: 20px;
-  background: #1a1a1a;
+  background: var(--progress-bg);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  border: 1px solid #333;
+  border: 1px solid var(--border-color);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00FF80 0%, #00CC66 100%);
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   transition: width 0.5s ease;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+  box-shadow: 0 0 20px var(--glow-color);
 }
 
 .progress-complete {
   margin-top: 1rem;
   padding: 1rem;
-  background: #fef3c7;
-  border: 2px solid #fbbf24;
+  background: var(--warning-bg);
+  border: 2px solid var(--warning-border);
   border-radius: 8px;
   text-align: center;
   font-weight: 600;
-  color: #92400e;
+  color: var(--warning-text);
 }
 
 /* Referral Code Section */
 .referral-code-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .referral-code-section h2 {
@@ -180,7 +180,7 @@
   gap: 0.75rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -195,9 +195,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #00FF80 0%, #00CC66 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   border-radius: 8px;
-  color: #000;
+  color: var(--button-text);
   font-weight: 600;
 }
 
@@ -221,18 +221,18 @@
 .code-input {
   flex: 1;
   padding: 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
-  background: #f9fafb;
-  color: #1f2937;
+  background: var(--input-bg);
+  color: var(--text-color);
   transition: border-color 0.2s;
 }
 
 .code-input:focus {
   outline: none;
-  border-color: #00FF80;
-  box-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--glow-color);
 }
 
 .btn-copy {
@@ -240,8 +240,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 1.5rem;
-  background: #00FF80;
-  color: #000;
+  background: var(--primary-color);
+  color: var(--button-text);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -252,8 +252,8 @@
 }
 
 .btn-copy:hover {
-  background: #00CC66;
-  box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+  background: var(--primary-dark);
+  box-shadow: 0 0 20px var(--glow-color);
   transform: translateY(-2px);
 }
 
@@ -273,15 +273,15 @@
 }
 
 .alert-warning {
-  background: #fef3c7;
-  border: 2px solid #fbbf24;
-  color: #92400e;
+  background: var(--warning-bg);
+  border: 2px solid var(--warning-border);
+  color: var(--warning-text);
 }
 
 .alert-danger {
-  background: #fee2e2;
-  border: 2px solid #ef4444;
-  color: #991b1b;
+  background: var(--danger-bg);
+  border: 2px solid var(--danger-border);
+  color: var(--danger-text);
 }
 
 .alert svg {
@@ -290,17 +290,17 @@
 
 /* Milestones Section */
 .milestones-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .milestones-section h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -315,21 +315,21 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
-  border: 3px solid #e5e7eb;
+  border: 3px solid var(--border-color);
   border-radius: 12px;
-  background: #f9fafb;
+  background: var(--input-bg);
   transition: all 0.3s ease;
 }
 
 .milestone-card.reached {
-  background: linear-gradient(135deg, rgba(0, 255, 128, 0.1) 0%, rgba(0, 204, 102, 0.1) 100%);
-  border-color: #00FF80;
-  box-shadow: 0 0 20px rgba(0, 255, 128, 0.2);
+  background: var(--milestone-reached-bg);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px var(--glow-color);
 }
 
 .milestone-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .milestone-icon {
@@ -339,14 +339,14 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #e5e7eb;
-  color: #6b7280;
+  background: var(--border-color);
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 
 .milestone-card.reached .milestone-icon {
-  background: #00FF80;
-  color: #000;
+  background: var(--primary-color);
+  color: var(--button-text);
 }
 
 .milestone-content {
@@ -356,13 +356,13 @@
 .milestone-content h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin: 0 0 0.25rem 0;
 }
 
 .milestone-content p {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0 0 0.5rem 0;
 }
 
@@ -375,31 +375,31 @@
 }
 
 .milestone-badge.reached {
-  background: #00FF80;
-  color: #000;
+  background: var(--primary-color);
+  color: var(--button-text);
   font-weight: 700;
 }
 
 .milestone-badge.pending {
-  background: #e5e7eb;
-  color: #6b7280;
+  background: var(--border-color);
+  color: var(--text-secondary);
 }
 
 /* Referred Users Section */
 .referred-users-section,
 .rewards-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .referred-users-section h2,
 .rewards-section h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -418,15 +418,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   transition: background 0.2s;
 }
 
 .user-card:hover,
 .reward-card:hover {
-  background: #f3f4f6;
+  background: var(--hover-bg);
 }
 
 .user-info,
@@ -437,46 +437,46 @@
 .user-name,
 .reward-title {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
 .user-username {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .reward-status {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .user-date,
 .reward-date {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--text-secondary);
   text-align: right;
 }
 
 /* Instructions Section */
 .instructions-section {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .instructions-section h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 .instructions-list {
   list-style-position: inside;
-  color: #4b5563;
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 1rem;
 }
@@ -493,15 +493,15 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  color: white;
+  color: var(--text-color);
   text-align: center;
 }
 
 .spinner {
   width: 48px;
   height: 48px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  border: 4px solid var(--spinner-border);
+  border-top-color: var(--primary-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -522,8 +522,8 @@
 
 .btn-primary {
   padding: 0.75rem 1.5rem;
-  background: white;
-  color: #667eea;
+  background: var(--primary-color);
+  color: var(--button-text);
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -532,7 +532,7 @@
 }
 
 .btn-primary:hover {
-  background: #f3f4f6;
+  background: var(--primary-dark);
 }
 
 /* Responsive Design */
