@@ -71,12 +71,13 @@ router.get('/my-code', authMiddleware, async (req, res, next) => {
     res.json({
       code: referralCode.code,
       referralCount: referralCode.referral_count,
+      maxReferrals: 10, // Maximum 10 referrals allowed
+      canReceiveMore: referralCode.referral_count < 10,
       referredUsers,
       rewards,
       milestones: [
         { count: 5, reached: referralCode.referral_count >= 5 },
-        { count: 10, reached: referralCode.referral_count >= 10 },
-        { count: 20, reached: referralCode.referral_count >= 20 }
+        { count: 10, reached: referralCode.referral_count >= 10 }
       ]
     });
   } catch (error) {

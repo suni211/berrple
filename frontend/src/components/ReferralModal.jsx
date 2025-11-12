@@ -111,8 +111,13 @@ export default function ReferralModal({ isOpen, onClose }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="bg-blue-50 rounded-lg p-4 text-center">
                   <Users className="mx-auto mb-2 text-blue-600" size={32} />
-                  <div className="text-3xl font-bold text-blue-600">{referralData.referralCount}</div>
-                  <div className="text-sm text-gray-600">초대한 친구</div>
+                  <div className="text-3xl font-bold text-blue-600">
+                    {referralData.referralCount} / {referralData.maxReferrals || 10}
+                  </div>
+                  <div className="text-sm text-gray-600">초대한 친구 (최대 10명)</div>
+                  {!referralData.canReceiveMore && (
+                    <div className="mt-2 text-xs text-orange-600 font-semibold">최대 인원 도달</div>
+                  )}
                 </div>
                 <div className="bg-green-50 rounded-lg p-4 text-center">
                   <Gift className="mx-auto mb-2 text-green-600" size={32} />
@@ -120,6 +125,15 @@ export default function ReferralModal({ isOpen, onClose }) {
                   <div className="text-sm text-gray-600">받은 보상</div>
                 </div>
               </div>
+
+              {/* Warning if max reached */}
+              {!referralData.canReceiveMore && (
+                <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                  <p className="text-orange-800 text-sm">
+                    ⚠️ 최대 추천 인원(10명)에 도달했습니다. 더 이상 추천을 받을 수 없습니다.
+                  </p>
+                </div>
+              )}
 
               {/* Milestones */}
               <div className="mb-6">
@@ -221,14 +235,18 @@ export default function ReferralModal({ isOpen, onClose }) {
 
               {/* Instructions */}
               <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                <h4 className="font-semibold text-blue-900 mb-2">💡 사용 방법</h4>
-                <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+                <h4 className="font-semibold text-blue-900 mb-2">💡 사용 방법 및 주의사항</h4>
+                <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside mb-3">
                   <li>위의 추천 링크를 복사하세요</li>
                   <li>친구에게 링크를 공유하세요</li>
                   <li>친구가 링크를 통해 가입하면 자동으로 카운트됩니다</li>
-                  <li>목표 인원 달성 시 이메일로 알림을 받습니다</li>
+                  <li>최대 10명까지만 추천 가능합니다</li>
+                  <li>5명, 10명 달성 시 이메일로 알림을 받습니다</li>
                   <li>관리자 확인 후 기프티콘이 발송됩니다</li>
                 </ol>
+                <div className="text-xs text-red-700 bg-red-50 p-2 rounded border border-red-200">
+                  ⚠️ <strong>중요:</strong> 다중 계정 생성 및 VPN 사용은 금지되며, 적발 시 보상이 취소됩니다.
+                </div>
               </div>
             </>
           )}

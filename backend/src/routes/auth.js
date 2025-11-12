@@ -6,6 +6,7 @@ const { body, validationResult } = require('express-validator');
 const db = require('../config/database');
 const { authMiddleware } = require('../middleware/auth');
 const { sendReferralRewardEmail, sendAdminNotificationEmail } = require('../utils/email');
+const { validateIpForRegistration, logIpRegistration, getClientIp, canReceiveReferrals } = require('../utils/ipValidator');
 
 // Register
 router.post('/register',
@@ -24,6 +25,14 @@ router.post('/register',
       }
 
       const { email, username, password, displayName, referralCode } = req.body;
+
+      // Validate IP for registration (VPN/Proxy/Multi-account detection)
+      const ipValidation = await validateIpForRegistration(req);
+      if (!ipValidation.valid) {
+        return res.status(403).json({ error: ipValidation.reason });
+      }
+
+      const clientIp = ipValidation.ip;
 
       // Check if user exists
       const [existingUsers] = await db.query(
@@ -45,17 +54,28 @@ router.post('/register',
 
         if (referralCodes.length > 0) {
           referrerId = referralCodes[0].user_id;
+
+          // Check if referrer can still receive referrals (max 10)
+          const canReceive = await canReceiveReferrals(referrerId);
+          if (!canReceive.allowed) {
+            return res.status(400).json({
+              error: '이 추천 코드는 최대 추천 인원에 도달했습니다.'
+            });
+          }
         }
       }
 
       // Hash password
       const passwordHash = await bcrypt.hash(password, 10);
 
-      // Create user
+      // Create user with IP tracking
       const [result] = await db.query(
-        'INSERT INTO users (email, username, password_hash, display_name, referred_by_code) VALUES (?, ?, ?, ?, ?)',
-        [email, username, passwordHash, displayName || username, referralCode || null]
+        'INSERT INTO users (email, username, password_hash, display_name, referred_by_code, registration_ip, last_login_ip) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [email, username, passwordHash, displayName || username, referralCode || null, clientIp, clientIp]
       );
+
+      // Log IP registration for tracking
+      await logIpRegistration(clientIp, result.insertId);
 
       // Create default channel for user
       await db.query(
@@ -66,8 +86,8 @@ router.post('/register',
       // Process referral if valid
       if (referrerId) {
         await db.query(
-          'INSERT INTO referrals (referrer_id, referred_user_id, referral_code, status) VALUES (?, ?, ?, ?)',
-          [referrerId, result.insertId, referralCode, 'completed']
+          'INSERT INTO referrals (referrer_id, referred_user_id, referral_code, status, registration_ip) VALUES (?, ?, ?, ?, ?)',
+          [referrerId, result.insertId, referralCode, 'completed', clientIp]
         );
 
         // Update referral count
@@ -83,7 +103,7 @@ router.post('/register',
         );
 
         const count = updatedCode[0].referral_count;
-        const milestones = [5, 10, 20, 50, 100];
+        const milestones = [5, 10]; // Only 5 and 10 person milestones
 
         // Check if user just reached a milestone
         if (milestones.includes(count)) {
@@ -185,8 +205,9 @@ router.post('/login',
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
-      // Update last login
-      await db.query('UPDATE users SET last_login_at = NOW() WHERE id = ?', [user.id]);
+      // Update last login with IP
+      const loginIp = getClientIp(req);
+      await db.query('UPDATE users SET last_login_at = NOW(), last_login_ip = ? WHERE id = ?', [loginIp, user.id]);
 
       // Generate token
       const token = jwt.sign(
