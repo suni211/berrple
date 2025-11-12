@@ -81,8 +81,25 @@ CREATE TABLE IF NOT EXISTS user_customization (
 -- Add columns to clouds table for customization
 ALTER TABLE clouds
 ADD COLUMN IF NOT EXISTS color_code VARCHAR(20) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS sticker_id INT DEFAULT NULL,
-ADD INDEX idx_color (color_code);
+ADD COLUMN IF NOT EXISTS sticker_id INT DEFAULT NULL;
+
+-- Add index only if it doesn't exist
+SET @index_exists = (
+    SELECT COUNT(1)
+    FROM INFORMATION_SCHEMA.STATISTICS
+    WHERE TABLE_SCHEMA = 'berrple'
+    AND TABLE_NAME = 'clouds'
+    AND INDEX_NAME = 'idx_color'
+);
+
+SET @sql = IF(@index_exists = 0,
+    'ALTER TABLE clouds ADD INDEX idx_color (color_code)',
+    'SELECT "Index idx_color already exists" AS message'
+);
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 -- Insert default shop items (without emojis in icon_url to avoid encoding issues)
 INSERT INTO shop_items (item_type, item_name, item_description, price, is_permanent, icon_url, color_code) VALUES
